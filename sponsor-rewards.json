@@ -1,0 +1,20 @@
+{
+  "maintainer": "Kasakir-AI",
+  "sponsor_page": "https://github.com/sponsors/Kasakir-AI",
+  "projects": ["Marmot", "UpdateWorkbench", "Aster", "Packrat", "agent-sync"],
+  "readme_path": "README.md",
+  "sponsors_file": { "repo": ".github", "path": "SPONSORS.md" },
+  "commit_author": { "name": "Kasakir", "email": "214017273+Kasakir-AI@users.noreply.github.com" },
+  "release_thanks_start": "2026-11-23T00:00:00Z",
+  "priority_label": { "name": "priority", "color": "d93f0b", "description": "Gets priority attention" },
+  "rules": {
+    "sponsors_list_monthly_min": 5,
+    "sponsors_list_one_time_min": 10,
+    "readme_name_monthly_min": 25,
+    "readme_logo_monthly_min": 100,
+    "readme_one_time_min": 100,
+    "readme_one_time_days": 365,
+    "release_thanks_one_time_min": 50,
+    "priority_monthly_min": 100
+  }
+}

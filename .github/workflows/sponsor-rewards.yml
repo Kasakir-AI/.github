@@ -1,0 +1,57 @@
+name: Sponsor rewards
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Show what would change without writing anything"
+        type: boolean
+        default: true
+  push:
+    branches: [main]
+    paths:
+      - "scripts/sponsor_rewards.py"
+      - "tests/**"
+      - "sponsor-rewards.json"
+  pull_request:
+    paths:
+      - "scripts/sponsor_rewards.py"
+      - "tests/**"
+      - "sponsor-rewards.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sponsor-rewards
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tests -v
+
+  sync:
+    needs: test
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deliver sponsor rewards
+        env:
+          SPONSOR_REWARDS_TOKEN: ${{ secrets.SPONSOR_REWARDS_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: |
+          if [ -z "$SPONSOR_REWARDS_TOKEN" ]; then
+            echo "::warning::SPONSOR_REWARDS_TOKEN is not set; skipping."
+            exit 0
+          fi
+          if [ "$DRY_RUN" = "true" ]; then
+            python3 scripts/sponsor_rewards.py --dry-run
+          else
+            python3 scripts/sponsor_rewards.py
+          fi
