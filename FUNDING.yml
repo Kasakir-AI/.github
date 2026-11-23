@@ -1,3 +1,10 @@
-# Shows the Sponsor button on every Kasakir-AI repository that has no FUNDING.yml of its own.
 github: Kasakir-AI
 ko_fi: kasakir
+custom: ["https://www.paypal.me/blitz94"]
+# Uncomment any of these you have (delete the # at the start of the line):
+# patreon: USERNAME
+# buy_me_a_coffee: USERNAME
+# liberapay: USERNAME
+# open_collective: USERNAME
+# polar: USERNAME
+# thanks_dev: u/gh/Kasakir-AI
